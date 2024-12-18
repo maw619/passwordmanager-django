@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block head_title %}Add Record{% endblock head_title %}
+{% block content %}
+
+{% include "account/partials/navbar.html" %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<form action="" class="max-w-sm mx-auto" method="post" autocomplete="off">
+    <h1>Update a Record</h1>
+<br>
+    {% csrf_token %}
+    {{form.as_p}}
+ 
+    <button class="btn btn-success mt-2">UPDATE</button>
+    <a href="/" class="link">go back</a>
+</form>
+{% endblock content %}

@@ -1,0 +1,35 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block head_title %}{% endblock head_title %}</title>
+    <script src="https://unpkg.com/htmx.org@2.0.4"></script>
+    <!-- have a button POST a click via AJAX -->
+ 
+    <link rel="icon" type="image/x-icon" href="{% static "images/favicon.ico" %}">
+    <link href="{% static "css/custom.css" %}" rel="stylesheet" type="text/css" />
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+<style>
+    .googleButton{
+        background-image: url('{% static "images/google1.png" %}');
+        height:50px;
+        width: 100px;
+        background-size: contain;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat; 
+        object-fit: contain;
+       }
+</style>
+</head>
+{% comment %} <body class="bg-gradient-to-r from-indigo-500 ..." style="height:100vh">  {% endcomment %}
+<body> 
+    <div class="container" style="margin:auto">
+    {% block content %}{% endblock content %}
+    </div>
+</body>
+</html>

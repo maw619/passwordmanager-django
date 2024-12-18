@@ -1,0 +1,25 @@
+{% for x in passes %}
+<tr class="bg-white dark:bg-gray-800 hover:bg-gray-50 dark:hover:bg-gray-600 text-gray-50"> 
+    <td class="px-6 py-4">
+      {{x.site_name}}
+    </td> 
+    <td class="px-6 py-4 underline decoration-sky-600 hover:decoration-blue-400">
+      <a href="{{x.site_url}}">{{x.site_url}}</a>
+    </td> 
+    <td class="px-6 py-4">
+      {{x.username}}
+    </td> 
+    <td class="px-6 py-4">
+      {{x.encrypted_password}}
+    </td> 
+    <td class="px-6 py-4">
+      {{x.remarks}}
+    </td> 
+    <td class="px-6 py-4 text-right">
+      <a href="{% url 'delete_record' x.id %}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">delete</a>
+  </td> 
+    <td class="px-6 py-4 text-right">
+        <a href="{% url 'update_record' x.id %}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+    </td>
+</tr>
+{% endfor %}
