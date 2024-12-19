@@ -12,6 +12,12 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 import os 
+from dotenv import load_dotenv
+
+
+
+
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -25,7 +31,7 @@ SECRET_KEY = 'django-insecure-#8+c11g2j(jk11av20v6r*1jql$p(tpv_@zcrwcv_rspx9dk4o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.243','127.0.0.1']
+ALLOWED_HOSTS = ['192.168.1.243','127.0.0.1','marcowolff.me']
 
 SITE_ID=1
 
@@ -153,6 +159,10 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 
+load_dotenv()
+
+CLIENT_ID = os.environ.get("CLIENT_ID")
+SECRET = os.environ.get("SECRET")
 
 # Provider specific settings
 SOCIALACCOUNT_PROVIDERS = {
@@ -161,13 +171,12 @@ SOCIALACCOUNT_PROVIDERS = {
         # (``socialaccount`` app) containing the required client
         # credentials, or list them here:
         'APP': {
-            'client_id': '306627390772-6pmri5itfv1dcsuh8p036cih0elpaand.apps.googleusercontent.com',
-            'secret': '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',
+            'client_id': CLIENT_ID,
+            'secret': SECRET,
             'key': ''
         }
     }
 }
-
 
 
 
