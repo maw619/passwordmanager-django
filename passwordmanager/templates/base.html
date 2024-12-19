@@ -12,7 +12,7 @@
     <link rel="icon" type="image/x-icon" href="{% static "images/favicon.ico" %}">
     <link href="{% static "css/custom.css" %}" rel="stylesheet" type="text/css" />
     <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.22/dist/full.min.css" rel="stylesheet" type="text/css" />
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com?plugins=typography"></script>
 <style>
     .googleButton{
         background-image: url('{% static "images/google1.png" %}');
@@ -31,5 +31,13 @@
     <div class="container" style="margin:auto">
     {% block content %}{% endblock content %}
     </div>
+
+
+
+    <script>
+        function deleteItem() {
+            if (confirm("Are you sure you want to delete this item?"))  {}
+          }
+    </script>
 </body>
 </html>

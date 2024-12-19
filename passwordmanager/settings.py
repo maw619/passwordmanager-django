@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-#8+c11g2j(jk11av20v6r*1jql$p(tpv_@zcrwcv_rspx9dk4o
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.243','127.0.0.1','marcowolff.me','https://marcowolff.me/',"https://marcowolff.me/"]
+ALLOWED_HOSTS = ['192.168.1.243','127.0.0.1','192.168.1.230','marcowolff.me','https://marcowolff.me/',"https://marcowolff.me/"]
 CSRF_TRUSTED_ORIGINS = ['http://marcowolff.me','https://marcowolff.me/','https://marcowolff.*','https://*.marcowolff.me/']
 SITE_ID=1
 
