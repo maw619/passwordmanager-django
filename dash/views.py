@@ -9,30 +9,18 @@ from django.db.models import Q
 
 
 @login_required
-def index(request):  
-    # q = request.GET.get('q')
-    # if q is not None:
-    #     vector = SearchVector('site_name','site_url','username','encrypted_password','remarks')
-    #     query = SearchQuery(q)
-    #     passes = PasswordEntry.objects.annotate(search=vector).filter(search=query) 
-    #     if q is not None and passes.count() == 0:
-    #         messages.warning(request, "no results found") 
-    # else:
-    #     id = request.user.id
-    #     passes = PasswordEntry.objects.filter(user=id) 
+def index(request):   
     id = request.user.id
     passes = PasswordEntry.objects.filter(user=id)
     context = {
-        "passes":passes,
-        # "word":q
+        "passes":passes, 
     } 
     return render(request, 'index.html', context)
 
 @login_required
-def search(request):
- 
-    q = request.GET.get('q') 
-    if q is not None:
+def search(request): 
+    q = request.GET.get('q').strip()
+    if q:
         passes = PasswordEntry.objects.filter(Q(site_name__icontains=q) | Q(site_url__icontains=q) | Q(encrypted_password__icontains=q) | Q(remarks__icontains=q))
     if q is None or q == "":
         id = request.user.id
