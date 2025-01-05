@@ -16,10 +16,20 @@ from dotenv import load_dotenv
 
 
 
-
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+
+
+
+
+ENCRYPTED_MODEL_FIELDS_KEY = os.environ.get('FIELD_ENCRYPTION_KEY', b'28LsZQRpxsLY-Sb4azA3uk-kv5F33fbt9AIVDmY3OkM=')
+FIELD_ENCRYPTION_KEY = ENCRYPTED_MODEL_FIELDS_KEY 
+
+
+
+ 
+
 
 
 # Quick-start development settings - unsuitable for production
@@ -39,6 +49,7 @@ SITE_ID=1
 SOCIALACCOUNT_LOGIN_ON_GET=True
 ACCOUNT_LOGOUT_ON_GET= True
 INSTALLED_APPS = [
+    'encrypted_model_fields',
     'dash', 
     'django.contrib.postgres',
     'widget_tweaks',
