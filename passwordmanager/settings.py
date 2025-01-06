@@ -22,12 +22,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-
-ENCRYPTED_MODEL_FIELDS_KEY = os.environ.get('FIELD_ENCRYPTION_KEY', b'28LsZQRpxsLY-Sb4azA3uk-kv5F33fbt9AIVDmY3OkM=')
-FIELD_ENCRYPTION_KEY = ENCRYPTED_MODEL_FIELDS_KEY 
-
-
-
  
 
 
@@ -36,7 +30,7 @@ FIELD_ENCRYPTION_KEY = ENCRYPTED_MODEL_FIELDS_KEY
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#8+c11g2j(jk11av20v6r*1jql$p(tpv_@zcrwcv_rspx9dk4o'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -114,29 +108,31 @@ WSGI_APPLICATION = 'passwordmanager.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'mydb', 
-        'USER': 'postgres', 
-        'PASSWORD': '2552', 
-        'HOST': '127.0.0.1', 
-        'PORT': '5432'
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+#         'NAME': 'mydb', 
+#         'USER': 'postgres', 
+#         'PASSWORD': '2552', 
+#         'HOST': '127.0.0.1', 
+#         'PORT': '5432'
+#     }
+# }
 
+DATABASES ={}
 DATABASES['default'] = dj_database_url.parse(
     'postgresql://root:H0pfQsqz6fdNxjlGKWCb9HWxNlchLZ1I@dpg-cttk6j5ds78s73cojsmg-a.ohio-postgres.render.com/passworddb_dfxk',
     conn_max_age=600,
     conn_health_checks=True,
 )
+
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
+    # {
+    #     'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+    # },
     # {
     #     'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
     # },

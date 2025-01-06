@@ -1,6 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from encrypted_model_fields.fields import EncryptedCharField
+#from encrypted_model_fields.fields import EncryptedCharField
  
 class User(AbstractUser):
     pass
@@ -17,5 +17,5 @@ class PasswordEntry(models.Model):
     site_name = models.CharField(max_length=255)
     site_url = models.URLField()
     username = models.CharField(max_length=255)
-    encrypted_password = EncryptedCharField(max_length=500)
+    encrypted_password = models.CharField(max_length=500)
     remarks = models.TextField(blank=True, null=True)
