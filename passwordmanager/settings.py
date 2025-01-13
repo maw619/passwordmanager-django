@@ -131,9 +131,9 @@ WSGI_APPLICATION = 'passwordmanager.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'mydb', 
+        'NAME': 'passdb', 
         'USER': 'postgres', 
-        'PASSWORD': 'passdb', 
+        'PASSWORD': '2552', 
         'HOST': 'localhost', 
         'PORT': '5432'
     }
