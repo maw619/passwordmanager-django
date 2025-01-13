@@ -37,6 +37,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.1.243',
                  '127.0.0.1',
+                 'localhost:8000',
+                 'localhost',
                  '192.168.1.230',
                  '48.217.186.140',
                  'marcowolff.me',
@@ -121,14 +123,21 @@ WSGI_APPLICATION = 'passwordmanager.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-        'NAME': 'passdb', 
-        'USER': 'postgres', 
-        'PASSWORD': '2552', 
-        'HOST': '127.0.0.1', 
-        'PORT': '5432'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+#         'NAME': 'mydb', 
+#         'USER': 'postgres', 
+#         'PASSWORD': 'password', 
+#         'HOST': 'db', 
+#         'PORT': '5432'
+#     }
+# }
 
 # DATABASES ={}
 # DATABASES['default'] = dj_database_url.parse(

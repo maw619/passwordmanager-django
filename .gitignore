@@ -6,6 +6,11 @@ __pycache__/
 # C extensions
 *.so
 
+
+dash/migrations/
+dash/migrations/*
+/migrations/
+
 # Distribution / packaging
 .Python
 build/
