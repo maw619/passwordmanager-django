@@ -7,9 +7,17 @@ from django.contrib.postgres.search import SearchQuery, SearchVector
 from django.contrib import messages
 from django.db.models import Q
 
+def get_client_ip(request):
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+    if x_forwarded_for:
+        ip = x_forwarded_for.split(',')[0]  # Get the first IP in case of multiple
+    else:
+        ip = request.META.get('REMOTE_ADDR')  # Fallback if no proxy is used
+    return ip
 
 @login_required
-def index(request):   
+def index(request):  
+    get_client_ip(request) 
     id = request.user.id
     passes = PasswordEntry.objects.filter(user=id)
     context = {
