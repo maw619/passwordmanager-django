@@ -17,7 +17,7 @@ def get_client_ip(request):
 
 @login_required
 def index(request):  
-    get_client_ip(request) 
+    print(get_client_ip(request)) 
     id = request.user.id
     passes = PasswordEntry.objects.filter(user=id)
     context = {
