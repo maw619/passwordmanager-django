@@ -6,18 +6,40 @@ from dash.forms import AddForm
 from django.contrib.postgres.search import SearchQuery, SearchVector
 from django.contrib import messages
 from django.db.models import Q
+import ipaddress
 
-def get_client_ip(request):
+def get_ipv4_from_x_forwarded_for(x_forwarded_for):
+    """Extracts and prioritizes IPv4 from a comma-separated list of IPs."""
+    if not x_forwarded_for:
+        return None
+    
+    for ip in x_forwarded_for.split(','):
+        ip = ip.strip()
+        if isinstance(ipaddress.ip_address(ip), ipaddress.IPv4Address):
+            return ip  # Return the first IPv4 address found
+    return None  # No IPv4 found
+
+def get_client_ipv4(request):
+    """Fetches the IPv4 address of the client if available."""
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
-    if x_forwarded_for:
-        ip = x_forwarded_for.split(',')[0]  # Get the first IP in case of multiple
-    else:
-        ip = request.META.get('REMOTE_ADDR')  # Fallback if no proxy is used
-    return ip
+    
+    ip = get_ipv4_from_x_forwarded_for(x_forwarded_for)
+    if ip:
+        return ip  # Return IPv4 if found
+
+    # Fallback to REMOTE_ADDR if no IPv4 found in X-Forwarded-For
+    remote_ip = request.META.get('REMOTE_ADDR')
+    if remote_ip and isinstance(ipaddress.ip_address(remote_ip), ipaddress.IPv4Address):
+        return remote_ip
+
+    return None  # No IPv4 available
+ 
+
+ 
 
 @login_required
 def index(request):  
-    print(get_client_ip(request)) 
+    print(get_client_ipv4(request)) 
     id = request.user.id
     passes = PasswordEntry.objects.filter(user=id)
     context = {
