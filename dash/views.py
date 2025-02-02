@@ -11,7 +11,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.conf import settings
 import ipinfo
-
+from django.contrib.messages import SUCCESS
 
 def get_client_ip(request):
     """Retrieves the client's IP address from request headers."""
@@ -40,6 +40,7 @@ def location(request):
     )
 
     print(response_string)  # For debugging/logging
+    messages.success(request, response_string)
 
 @login_required
 def index(request):  
@@ -48,6 +49,7 @@ def index(request):
     id = request.user.id
     passes = PasswordEntry.objects.filter(user=id)
     context = {
+        "ip":location(request),
         "passes":passes, 
     } 
     return render(request, 'index.html', context)
