@@ -7,7 +7,14 @@ from django.contrib.postgres.search import SearchQuery, SearchVector
 from django.contrib import messages
 from django.db.models import Q
 
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.conf import settings
+import ipinfo
+
+
 def get_client_ip(request):
+    """Retrieves the client's IP address from request headers."""
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
     if x_forwarded_for:
         ip = x_forwarded_for.split(',')[0]  # Get the first IP in case of multiple
@@ -15,23 +22,24 @@ def get_client_ip(request):
         ip = request.META.get('REMOTE_ADDR')  # Fallback if no proxy is used
     return ip
 
-from django.shortcuts import render
-from django.http import HttpResponse
-from django.conf import settings
-import ipinfo
-
-
-def get_ip_details(ip_address=None):
-	ipinfo_token = getattr(settings, "IPINFO_TOKEN", None) 
-	ip_data = ipinfo.getHandler(ipinfo_token)
-	ip_data = ip_data.getDetails(ip_address)
-	return ip_data
+def get_ip_details(ip_address):
+    """Fetches IP geolocation details from ipinfo.io."""
+    ipinfo_token = getattr(settings, "IPINFO_TOKEN", None) 
+    handler = ipinfo.getHandler(ipinfo_token)
+    ip_data = handler.getDetails(ip_address)
+    
+    return ip_data.all  # Convert to dictionary
 
 def location(request):
-	ip_data = get_ip_details('217.114.38.144')
-	response_string = 'The IP address {} is located at the coordinates {}, which is in the city {}.'.format(ip_data.ip,ip_data.loc,ip_data.city)
-	print(response_string)
-    # return HttpResponse(response_string)
+    """Dynamically fetches the visitor's IP and retrieves location details."""
+    user_ip = get_client_ip(request)  # Get user's IP dynamically
+    ip_data = get_ip_details(user_ip)  # Fetch IP details
+
+    response_string = 'The IP address {} is located at the coordinates {}, which is in the city {}.'.format(
+        ip_data.get('ip', 'Unknown'), ip_data.get('loc', 'Unknown'), ip_data.get('city', 'Unknown')
+    )
+
+    print(response_string)  # For debugging/logging
 
 @login_required
 def index(request):  
