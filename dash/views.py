@@ -15,9 +15,28 @@ def get_client_ip(request):
         ip = request.META.get('REMOTE_ADDR')  # Fallback if no proxy is used
     return ip
 
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.conf import settings
+import ipinfo
+
+
+def get_ip_details(ip_address=None):
+	ipinfo_token = getattr(settings, "IPINFO_TOKEN", None) 
+	ip_data = ipinfo.getHandler(ipinfo_token)
+	ip_data = ip_data.getDetails(ip_address)
+	return ip_data
+
+def location(request):
+	ip_data = get_ip_details('217.114.38.144')
+	response_string = 'The IP address {} is located at the coordinates {}, which is in the city {}.'.format(ip_data.ip,ip_data.loc,ip_data.city)
+	print(response_string)
+    # return HttpResponse(response_string)
+
 @login_required
 def index(request):  
-    print(get_client_ip(request)) 
+    location(request)
+    # print(get_client_ip(request)) 
     id = request.user.id
     passes = PasswordEntry.objects.filter(user=id)
     context = {

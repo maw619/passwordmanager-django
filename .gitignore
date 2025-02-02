@@ -10,7 +10,8 @@ __pycache__/
 dash/migrations/
 dash/migrations/*
 /migrations/
-
+./dash/migrations/0001_initial.py
+ 
 # Distribution / packaging
 .Python
 build/

@@ -21,7 +21,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 
-
+IPINFO_TOKEN = '1df2c6dc205721'
+ 
+IPINFO_FILTER = lambda request: request.scheme == 'http' 
  
 
 
@@ -85,6 +87,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # Add the account middleware:
     "allauth.account.middleware.AccountMiddleware",
+    'ipinfo_django.middleware.IPinfoMiddleware',
 ]
 
 ROOT_URLCONF = 'passwordmanager.urls'
